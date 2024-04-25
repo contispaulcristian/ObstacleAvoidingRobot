@@ -1,15 +1,15 @@
 /*
- * stm32f446xx_gpio_driver.h
+ * gpio_driver.h
  *
  *  Created on: Mar 28, 2024
  *      Author: paul.contis
  */
 
-#ifndef INC_STM32F446XX_GPIO_DRIVER_H_
-#define INC_STM32F446XX_GPIO_DRIVER_H_
+#ifndef INC_GPIO_DRIVERS_H_
+#define INC_GPIO_DRIVERS_H_
 
 /*************************************************************************************************************************************************/
-#include "stm32f446xx.h"
+#include <stm32f446re.h>
 /*
  * This is a Configuration structure for a GPIO pin
  */
@@ -114,4 +114,4 @@ void GPIO_IRQHandling(uint8_t PinNumber);
 
 /*************************************************************************************************************************************************/
 
-#endif /* INC_STM32F446XX_GPIO_DRIVER_H_ */
+#endif /* INC_GPIO_DRIVERS_H_ */

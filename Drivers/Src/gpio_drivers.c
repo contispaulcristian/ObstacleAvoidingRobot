@@ -1,12 +1,12 @@
 /*
- * stm32f446xx_gpio_driver.c
+ * gpio_driver.c
  *
  *  Created on: Mar 28, 2024
  *      Author: paul.contis
  */
 
 /*************************************************************************************************************************************************/
-#include "stm32f446xx_gpio_driver.h"
+#include <gpio_drivers.h>
 /**************************************************************************************************************************************************
  * @fn 							- GPIO_PeriClockControl
  * @brief 						- This function enables or disables peripheral clock for given GPIO port
@@ -38,22 +38,6 @@ void GPIO_PeriClockControl (GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
        	{
         	GPIOD_PCLK_EN();
        	}
-        else if (pGPIOx == GPIOE)
-        {
-        	GPIOE_PCLK_EN();
-        }
-        else if (pGPIOx == GPIOF)
-        {
-        	GPIOF_PCLK_EN();
-        }
-        else if (pGPIOx == GPIOG)
-        {
-        	GPIOG_PCLK_EN();
-        }
-        else if (pGPIOx == GPIOH)
-        {
-        	GPIOH_PCLK_EN();
-        }
     }
 	else
     {
@@ -73,22 +57,6 @@ void GPIO_PeriClockControl (GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 		{
 			GPIOD_PCLK_DI();
 		}
-		else if (pGPIOx == GPIOE)
-		{
-			GPIOE_PCLK_DI();
-		}
-		else if (pGPIOx == GPIOF)
-		{
-			GPIOF_PCLK_DI();
-		}
-		else if (pGPIOx == GPIOG)
-		{
-			GPIOG_PCLK_DI();
-		}
-		else if (pGPIOx == GPIOH)
-		{
-			GPIOH_PCLK_DI();
-		}
     }
 }
 /**************************************************************************************************************************************************
@@ -103,13 +71,14 @@ void GPIO_PeriClockControl (GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
  *************************************************************************************************************************************************/
 void GPIO_Init (GPIO_Handle_t *pGPIOHandle)
 {
-	uint32_t temp = 0; //temp. register
+	uint32_t temp = 0;
 	uint8_t temp1 = 0;
 	uint8_t temp2 = 0;
 	uint8_t portcode = 0;
 
 	/* Enable the peripheral clock */
 	GPIO_PeriClockControl((pGPIOHandle->pGPIOx), ENABLE);
+
 	/* configure the mode of gpio pin*/
 	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG)
     {
@@ -161,6 +130,7 @@ void GPIO_Init (GPIO_Handle_t *pGPIOHandle)
 	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
 	pGPIOHandle->pGPIOx->PUPDR &= ~(0x3 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 	pGPIOHandle->pGPIOx->PUPDR |= temp;
+
 	/* configure the optype*/ //TODO: configure only in output mode
 	temp = 0;
 	temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
@@ -206,22 +176,6 @@ void GPIO_DeInit (GPIO_RegDef_t *pGPIOx)
 	else if (pGPIOx == GPIOD)
     {
 		GPIOD_REG_RESET();
-    }
-	else if (pGPIOx == GPIOE)
-    {
-		GPIOE_REG_RESET();
-    }
-	else if (pGPIOx == GPIOF)
-    {
-		GPIOF_REG_RESET();
-    }
-	else if (pGPIOx == GPIOG)
-    {
-		GPIOG_REG_RESET();
-    }
-	else if (pGPIOx == GPIOH)
-    {
-		GPIOH_REG_RESET();
     }
 }
 /**************************************************************************************************************************************************

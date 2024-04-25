@@ -1,4 +1,6 @@
-"./Drivers/Src/stm32f446xx_gpio_driver.o"
+"./ASW/Src/test_app.o"
+"./BSW/Src/timer1_pwm.o"
+"./Drivers/Src/gpio_drivers.o"
 "./Src/main.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"
